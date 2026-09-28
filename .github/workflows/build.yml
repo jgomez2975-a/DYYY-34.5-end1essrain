@@ -1,0 +1,27 @@
+name: Build DYYY 34.5 arm64
+on: {workflow_dispatch: {}}
+jobs:
+  build:
+    runs-on: macos-14
+    steps:
+    - uses: actions/checkout@v4
+    - run: |
+        git clone --depth 1 https://github.com/theos/theos.git "$HOME/theos"
+        git -C "$HOME/theos" submodule update --init --recursive
+        git clone --depth 1 https://github.com/theos/sdks.git "$RUNNER_TEMP/sdks"
+        rm -rf "$HOME/theos/sdks"; mv "$RUNNER_TEMP/sdks" "$HOME/theos/sdks"
+        echo "THEOS=$HOME/theos" >> "$GITHUB_ENV"
+        echo "$HOME/theos/bin" >> "$GITHUB_PATH"
+        brew install ldid
+    - run: |
+        make clean || true
+        make package ARCHS=arm64 FINALPACKAGE=1
+        mkdir -p artifact/pkg
+        cp .theos/obj/arm64/DYYY.dylib DYYY.plist artifact/
+        codesign -s - --force artifact/DYYY.dylib
+        file artifact/DYYY.dylib
+        otool -l artifact/DYYY.dylib > artifact/load-commands.txt
+        cp artifact/DYYY.dylib artifact/DYYY.plist artifact/pkg/
+        ditto -c -k --sequesterRsrc artifact/pkg artifact/DYYY-34.5.zip
+    - uses: actions/upload-artifact@v4
+      with: {name: DYYY-34.5-end1essrain-arm64, path: artifact/*}
