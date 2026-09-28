@@ -14,6 +14,7 @@ jobs:
           rm -rf "$HOME/theos/sdks"; mv "$RUNNER_TEMP/sdks" "$HOME/theos/sdks"
           echo "THEOS=$HOME/theos" >> "$GITHUB_ENV"
           echo "$HOME/theos/bin" >> "$GITHUB_PATH"
+          brew install ldid
       - name: Build
         run: |
           make -f Makefile.onehook clean || true
