@@ -7911,6 +7911,9 @@ static void findTargetViewInView(UIView *view) {
     }
 }
 
+// Stage0: disable all explicit initialization for 34.5.0 baseline
+#if 0
+
 %ctor {
     Class imMenuComponentClass = objc_getClass("AWEIMCustomMenuComponent");
     if (imMenuComponentClass) {
@@ -8000,3 +8003,5 @@ static void findTargetViewInView(UIView *view) {
                                                     }];
     }
 }
+
+#endif
