@@ -7911,6 +7911,7 @@ static void findTargetViewInView(UIView *view) {
     }
 }
 
-// 34.5 stage0: no group initialization
+// 34.5 stage0: initialize only ungrouped hooks
 %ctor {
+    %init;
 }
