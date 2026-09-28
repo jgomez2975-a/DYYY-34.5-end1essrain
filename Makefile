@@ -36,10 +36,10 @@ include $(THEOS)/makefiles/common.mk
 
 TWEAK_NAME = DYYY
 
-DYYY_FILES = DYYY.xm
+DYYY_FILES = DYYY34Stage0.xm
 DYYY_CFLAGS = -fobjc-arc -w
-DYYY_LDFLAGS = -weak_framework AVFAudio
-DYYY_FRAMEWORKS = CoreAudio
+DYYY_LDFLAGS =
+DYYY_FRAMEWORKS = Foundation
 CXXFLAGS += -std=c++11
 CCFLAGS += -std=c++11
 DYYY_LOGOS_DEFAULT_GENERATOR = internal

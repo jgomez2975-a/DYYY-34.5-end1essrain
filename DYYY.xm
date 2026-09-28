@@ -800,7 +800,6 @@ static BOOL DYYYShouldHandleSpeedFeatures(void) {
 
 %end
 
-#if 0
 %group DYYYSettingsGesture
 
 %hook UIWindow
@@ -888,7 +887,6 @@ static BOOL DYYYShouldHandleSpeedFeatures(void) {
 %end
 
 %end
-#endif
 
 %hook AWEBaseListViewController
 - (void)viewDidLayoutSubviews {
@@ -1916,7 +1914,6 @@ static NSArray<NSString *> *dyyy_qualityRank = nil;
 
 %end
 
-#if 0
 %group AutoPlay
 
 %hook AWEAwemeDetailTableViewController
@@ -1934,7 +1931,6 @@ static NSArray<NSString *> *dyyy_qualityRank = nil;
 }
 
 %end
-#endif
 
 %hook AWEFeedIPhoneAutoPlayManager
 
@@ -2117,7 +2113,6 @@ BOOL commentLivePhotoNotWaterMark = DYYYGetBool(@"DYYYCommentLivePhotoNotWaterMa
 }
 %end
 
-#if 0
 %group EnableStickerSaveMenu
 static __weak YYAnimatedImageView *targetStickerView = nil;
 static BOOL dyyyShouldUseLastStickerURL = NO;
@@ -2252,7 +2247,6 @@ static BOOL dyyyShouldUseLastStickerURL = NO;
 }
 
 %end
-#endif
 
 %hook UIMenu
 
@@ -2487,7 +2481,6 @@ static NSArray *DYYYIMMenuItemsByAddingDownloadAction(NSArray *menuItems, id cel
     return newMenuItems ?: menuItems;
 }
 
-#if 0
 %group DYYYIMMenuLegacyGroup
 %hook AWEIMCustomMenuComponent
 - (void)msg_showMenuForBubbleFrameInScreen:(CGRect)bubbleFrame tapLocationInScreen:(CGPoint)tapLocation menuItemList:(NSArray *)menuItems moreEmoticon:(BOOL)moreEmoticon onCell:(id)cell extra:(id)extra {
@@ -2496,9 +2489,7 @@ static NSArray *DYYYIMMenuItemsByAddingDownloadAction(NSArray *menuItems, id cel
 }
 %end
 %end
-#endif
 
-#if 0
 %group DYYYIMMenuTapLocationGroup
 %hook AWEIMCustomMenuComponent
 - (void)msg_showMenuForBubbleFrameInScreen:(CGRect)bubbleFrame tapLocationInScreen:(CGPoint)tapLocation menuItemList:(NSArray *)menuItems menuPanelOptions:(unsigned long long)menuPanelOptions moreEmoticon:(BOOL)moreEmoticon onCell:(id)cell extra:(id)extra {
@@ -2507,9 +2498,7 @@ static NSArray *DYYYIMMenuItemsByAddingDownloadAction(NSArray *menuItems, id cel
 }
 %end
 %end
-#endif
 
-#if 0
 %group DYYYIMMenuHighLowGroup
 %hook AWEIMCustomMenuComponent
 - (void)msg_showMenuForBubbleFrameInScreen:(CGRect)bubbleFrame highLocationInScreen:(CGPoint)highLocation lowLocationInScreen:(CGPoint)lowLocation tryHighLocationFirst:(BOOL)tryHighLocationFirst menuItemList:(NSArray *)menuItems menuPanelOptions:(unsigned long long)menuPanelOptions onCell:(id)cell extra:(id)extra {
@@ -2518,7 +2507,6 @@ static NSArray *DYYYIMMenuItemsByAddingDownloadAction(NSArray *menuItems, id cel
 }
 %end
 %end
-#endif
 
 %hook AWEFeedTabJumpGuideView
 
@@ -2702,7 +2690,6 @@ static NSArray *DYYYIMMenuItemsByAddingDownloadAction(NSArray *menuItems, id cel
 %end
 
 // Swift 类组
-#if 0
 %group CommentHeaderGeneralGroup
 // DYYY34_DISABLED AWECommentPanelHeaderSwiftImpl_CommentHeaderGeneralView
 #if 0
@@ -2717,8 +2704,6 @@ static NSArray *DYYYIMMenuItemsByAddingDownloadAction(NSArray *menuItems, id cel
 %end
 #endif
 %end
-#endif
-#if 0
 %group CommentHeaderGoodsGroup
 // DYYY34_DISABLED AWECommentPanelHeaderSwiftImpl_CommentHeaderGoodsView
 #if 0
@@ -2733,8 +2718,6 @@ static NSArray *DYYYIMMenuItemsByAddingDownloadAction(NSArray *menuItems, id cel
 %end
 #endif
 %end
-#endif
-#if 0
 %group CommentHeaderTemplateGroup
 // DYYY34_DISABLED AWECommentPanelHeaderSwiftImpl_CommentHeaderTemplateAnchorView
 #if 0
@@ -2749,8 +2732,6 @@ static NSArray *DYYYIMMenuItemsByAddingDownloadAction(NSArray *menuItems, id cel
 %end
 #endif
 %end
-#endif
-#if 0
 %group CommentBottomTipsVCGroup
 // DYYY34_DISABLED AWECommentPanelListSwiftImpl_CommentBottomTipsContainerViewController
 #if 0
@@ -2764,7 +2745,6 @@ static NSArray *DYYYIMMenuItemsByAddingDownloadAction(NSArray *menuItems, id cel
 %end
 #endif
 %end
-#endif
 
 // 去除隐藏大家都在搜后的留白
 %hook AWESearchAnchorListModel
@@ -7822,7 +7802,6 @@ static NSString *const kHideRecentUsersKey = @"DYYYHideSidebarRecentUsers";
 %end
 
 // 极速版红包激励挂件容器视图类组（移除逻辑）
-#if 0
 %group IncentivePendantGroup
 // DYYY34_DISABLED AWEIncentiveSwiftImplDOUYINLite_IncentivePendantContainerView
 #if 0
@@ -7836,10 +7815,8 @@ static NSString *const kHideRecentUsersKey = @"DYYYHideSidebarRecentUsers";
 %end
 #endif
 %end
-#endif
 
 // View scaling fix when comment blur is enabled
-#if 0
 %group BDMultiContentImageViewGroup
 // DYYY34_DISABLED BDMultiContentContainer_ImageContentView
 #if 0
@@ -7855,7 +7832,6 @@ static NSString *const kHideRecentUsersKey = @"DYYYHideSidebarRecentUsers";
 %end
 #endif
 %end
-#endif
 
 %hook AWEStoryContainerCollectionView
 
@@ -7935,7 +7911,92 @@ static void findTargetViewInView(UIView *view) {
     }
 }
 
-// 34.5 stage0: initialize only ungrouped hooks
 %ctor {
-    %init;
+    Class imMenuComponentClass = objc_getClass("AWEIMCustomMenuComponent");
+    if (imMenuComponentClass) {
+        SEL legacySelector = NSSelectorFromString(@"msg_showMenuForBubbleFrameInScreen:tapLocationInScreen:menuItemList:moreEmoticon:onCell:extra:");
+        SEL tapLocationSelector = NSSelectorFromString(@"msg_showMenuForBubbleFrameInScreen:tapLocationInScreen:menuItemList:menuPanelOptions:moreEmoticon:onCell:extra:");
+        SEL highLowSelector = NSSelectorFromString(@"msg_showMenuForBubbleFrameInScreen:highLocationInScreen:lowLocationInScreen:tryHighLocationFirst:menuItemList:menuPanelOptions:onCell:extra:");
+        if (legacySelector && class_getInstanceMethod(imMenuComponentClass, legacySelector)) {
+            %init(DYYYIMMenuLegacyGroup);
+        }
+        if (tapLocationSelector && class_getInstanceMethod(imMenuComponentClass, tapLocationSelector)) {
+            %init(DYYYIMMenuTapLocationGroup);
+        }
+        if (highLowSelector && class_getInstanceMethod(imMenuComponentClass, highLowSelector)) {
+            %init(DYYYIMMenuHighLowGroup);
+        }
+    }
+
+    if (!DYYYGetBool(@"DYYYDisableSettingsGesture")) {
+        %init(DYYYSettingsGesture);
+    }
+    if (DYYYGetBool(@"DYYYUserAgreementAccepted")) {
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+          Class wSwiftImpl = objc_getClass("AWECommentInputViewSwiftImpl.CommentInputContainerView");
+          %init(CommentInputContainerView = wSwiftImpl);
+        });
+        BOOL isAutoPlayEnabled = DYYYGetBool(@"DYYYEnableAutoPlay");
+        if (isAutoPlayEnabled) {
+            %init(AutoPlay);
+        }
+        if (DYYYGetBool(@"DYYYForceDownloadEmotion")) {
+            %init(EnableStickerSaveMenu);
+        }
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        isFloatSpeedButtonEnabled = [defaults boolForKey:@"DYYYEnableFloatSpeedButton"];
+
+        // 初始化红包激励挂件容器视图类组
+        Class incentivePendantClass = objc_getClass("AWEIncentiveSwiftImplDOUYINLite.IncentivePendantContainerView");
+        if (incentivePendantClass) {
+// DYYY34_DISABLED             %init(IncentivePendantGroup, AWEIncentiveSwiftImplDOUYINLite_IncentivePendantContainerView = incentivePendantClass);
+        }
+        Class imageContentClass = objc_getClass("BDMultiContentContainer.ImageContentView");
+        if (imageContentClass) {
+// DYYY34_DISABLED             %init(BDMultiContentImageViewGroup, BDMultiContentContainer_ImageContentView = imageContentClass);
+        }
+
+        // 动态获取 Swift 类并初始化对应的组
+        Class commentHeaderGeneralClass = objc_getClass("AWECommentPanelHeaderSwiftImpl.CommentHeaderGeneralView");
+        if (commentHeaderGeneralClass) {
+// DYYY34_DISABLED             %init(CommentHeaderGeneralGroup, AWECommentPanelHeaderSwiftImpl_CommentHeaderGeneralView = commentHeaderGeneralClass);
+        }
+
+        Class commentHeaderGoodsClass = objc_getClass("AWECommentPanelHeaderSwiftImpl.CommentHeaderGoodsView");
+        if (commentHeaderGoodsClass) {
+// DYYY34_DISABLED             %init(CommentHeaderGoodsGroup, AWECommentPanelHeaderSwiftImpl_CommentHeaderGoodsView = commentHeaderGoodsClass);
+        }
+
+        Class commentHeaderTemplateClass = objc_getClass("AWECommentPanelHeaderSwiftImpl.CommentHeaderTemplateAnchorView");
+        if (commentHeaderTemplateClass) {
+// DYYY34_DISABLED             %init(CommentHeaderTemplateGroup, AWECommentPanelHeaderSwiftImpl_CommentHeaderTemplateAnchorView = commentHeaderTemplateClass);
+        }
+
+        Class tipsVCClass = objc_getClass("AWECommentPanelListSwiftImpl.CommentBottomTipsContainerViewController");
+        if (tipsVCClass) {
+// DYYY34_DISABLED             %init(CommentBottomTipsVCGroup, AWECommentPanelListSwiftImpl_CommentBottomTipsContainerViewController = tipsVCClass);
+        }
+
+        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        DYYYRemoveKeyboardObserver();
+        dyyyKeyboardWillShowToken = [center addObserverForName:UIKeyboardWillShowNotification
+                                                        object:nil
+                                                         queue:[NSOperationQueue mainQueue]
+                                                    usingBlock:^(NSNotification *notification) {
+                                                      if (DYYYGetBool(@"DYYYHideKeyboardAI")) {
+                                                          if (cachedHideView) {
+                                                              for (UIView *subview in cachedHideView.subviews) {
+                                                                  subview.hidden = YES;
+                                                              }
+                                                          } else {
+                                                              for (UIWindow *window in [UIApplication sharedApplication].windows) {
+                                                                  findTargetViewInView(window);
+                                                                  if (cachedHideView)
+                                                                      break;
+                                                              }
+                                                          }
+                                                      }
+                                                    }];
+    }
 }
