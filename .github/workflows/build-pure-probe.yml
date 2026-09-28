@@ -1,0 +1,31 @@
+name: Build pure C arm64 probe
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build pure Mach-O dylib
+        run: |
+          SDK=$(xcrun --sdk iphoneos --show-sdk-path)
+          CLANG=$(xcrun --sdk iphoneos --find clang)
+          "$CLANG" -target arm64-apple-ios14.0 -isysroot "$SDK" -fPIC -c PureProbe.c -o PureProbe.o
+          "$CLANG" -target arm64-apple-ios14.0 -isysroot "$SDK" -dynamiclib -nostdlib -Wl,-dylib -Wl,-platform_version,ios,14.0,17.5 -Wl,-no_uuid PureProbe.o -o PureProbe.dylib
+          codesign -s - --force PureProbe.dylib
+          file PureProbe.dylib
+          otool -L PureProbe.dylib
+          otool -l PureProbe.dylib > load-commands.txt
+          codesign -dv --verbose=4 PureProbe.dylib 2>&1 | tee codesign.txt
+          mkdir -p package
+          cp PureProbe.dylib PureProbe.plist package/
+          ditto -c -k --sequesterRsrc package PureProbe-TrollStore.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: DYYY-34.5-pure-c-arm64
+          path: |
+            PureProbe.dylib
+            PureProbe.plist
+            PureProbe-TrollStore.zip
+            load-commands.txt
+            codesign.txt
