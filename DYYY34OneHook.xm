@@ -1,4 +1,4 @@
-# Standard Logos one-hook baseline: no private Douyin classes.
+// Standard Logos one-hook baseline: no private Douyin classes.
 #import <UIKit/UIKit.h>
 
 %hook UIApplication
