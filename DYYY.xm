@@ -800,6 +800,7 @@ static BOOL DYYYShouldHandleSpeedFeatures(void) {
 
 %end
 
+#if 0
 %group DYYYSettingsGesture
 
 %hook UIWindow
@@ -887,6 +888,7 @@ static BOOL DYYYShouldHandleSpeedFeatures(void) {
 %end
 
 %end
+#endif
 
 %hook AWEBaseListViewController
 - (void)viewDidLayoutSubviews {
@@ -1914,6 +1916,7 @@ static NSArray<NSString *> *dyyy_qualityRank = nil;
 
 %end
 
+#if 0
 %group AutoPlay
 
 %hook AWEAwemeDetailTableViewController
@@ -1931,6 +1934,7 @@ static NSArray<NSString *> *dyyy_qualityRank = nil;
 }
 
 %end
+#endif
 
 %hook AWEFeedIPhoneAutoPlayManager
 
@@ -2113,6 +2117,7 @@ BOOL commentLivePhotoNotWaterMark = DYYYGetBool(@"DYYYCommentLivePhotoNotWaterMa
 }
 %end
 
+#if 0
 %group EnableStickerSaveMenu
 static __weak YYAnimatedImageView *targetStickerView = nil;
 static BOOL dyyyShouldUseLastStickerURL = NO;
@@ -2247,6 +2252,7 @@ static BOOL dyyyShouldUseLastStickerURL = NO;
 }
 
 %end
+#endif
 
 %hook UIMenu
 
@@ -2481,6 +2487,7 @@ static NSArray *DYYYIMMenuItemsByAddingDownloadAction(NSArray *menuItems, id cel
     return newMenuItems ?: menuItems;
 }
 
+#if 0
 %group DYYYIMMenuLegacyGroup
 %hook AWEIMCustomMenuComponent
 - (void)msg_showMenuForBubbleFrameInScreen:(CGRect)bubbleFrame tapLocationInScreen:(CGPoint)tapLocation menuItemList:(NSArray *)menuItems moreEmoticon:(BOOL)moreEmoticon onCell:(id)cell extra:(id)extra {
@@ -2489,7 +2496,9 @@ static NSArray *DYYYIMMenuItemsByAddingDownloadAction(NSArray *menuItems, id cel
 }
 %end
 %end
+#endif
 
+#if 0
 %group DYYYIMMenuTapLocationGroup
 %hook AWEIMCustomMenuComponent
 - (void)msg_showMenuForBubbleFrameInScreen:(CGRect)bubbleFrame tapLocationInScreen:(CGPoint)tapLocation menuItemList:(NSArray *)menuItems menuPanelOptions:(unsigned long long)menuPanelOptions moreEmoticon:(BOOL)moreEmoticon onCell:(id)cell extra:(id)extra {
@@ -2498,7 +2507,9 @@ static NSArray *DYYYIMMenuItemsByAddingDownloadAction(NSArray *menuItems, id cel
 }
 %end
 %end
+#endif
 
+#if 0
 %group DYYYIMMenuHighLowGroup
 %hook AWEIMCustomMenuComponent
 - (void)msg_showMenuForBubbleFrameInScreen:(CGRect)bubbleFrame highLocationInScreen:(CGPoint)highLocation lowLocationInScreen:(CGPoint)lowLocation tryHighLocationFirst:(BOOL)tryHighLocationFirst menuItemList:(NSArray *)menuItems menuPanelOptions:(unsigned long long)menuPanelOptions onCell:(id)cell extra:(id)extra {
@@ -2507,6 +2518,7 @@ static NSArray *DYYYIMMenuItemsByAddingDownloadAction(NSArray *menuItems, id cel
 }
 %end
 %end
+#endif
 
 %hook AWEFeedTabJumpGuideView
 
@@ -2690,6 +2702,7 @@ static NSArray *DYYYIMMenuItemsByAddingDownloadAction(NSArray *menuItems, id cel
 %end
 
 // Swift 类组
+#if 0
 %group CommentHeaderGeneralGroup
 // DYYY34_DISABLED AWECommentPanelHeaderSwiftImpl_CommentHeaderGeneralView
 #if 0
@@ -2704,6 +2717,8 @@ static NSArray *DYYYIMMenuItemsByAddingDownloadAction(NSArray *menuItems, id cel
 %end
 #endif
 %end
+#endif
+#if 0
 %group CommentHeaderGoodsGroup
 // DYYY34_DISABLED AWECommentPanelHeaderSwiftImpl_CommentHeaderGoodsView
 #if 0
@@ -2718,6 +2733,8 @@ static NSArray *DYYYIMMenuItemsByAddingDownloadAction(NSArray *menuItems, id cel
 %end
 #endif
 %end
+#endif
+#if 0
 %group CommentHeaderTemplateGroup
 // DYYY34_DISABLED AWECommentPanelHeaderSwiftImpl_CommentHeaderTemplateAnchorView
 #if 0
@@ -2732,6 +2749,8 @@ static NSArray *DYYYIMMenuItemsByAddingDownloadAction(NSArray *menuItems, id cel
 %end
 #endif
 %end
+#endif
+#if 0
 %group CommentBottomTipsVCGroup
 // DYYY34_DISABLED AWECommentPanelListSwiftImpl_CommentBottomTipsContainerViewController
 #if 0
@@ -2745,6 +2764,7 @@ static NSArray *DYYYIMMenuItemsByAddingDownloadAction(NSArray *menuItems, id cel
 %end
 #endif
 %end
+#endif
 
 // 去除隐藏大家都在搜后的留白
 %hook AWESearchAnchorListModel
@@ -7802,6 +7822,7 @@ static NSString *const kHideRecentUsersKey = @"DYYYHideSidebarRecentUsers";
 %end
 
 // 极速版红包激励挂件容器视图类组（移除逻辑）
+#if 0
 %group IncentivePendantGroup
 // DYYY34_DISABLED AWEIncentiveSwiftImplDOUYINLite_IncentivePendantContainerView
 #if 0
@@ -7815,8 +7836,10 @@ static NSString *const kHideRecentUsersKey = @"DYYYHideSidebarRecentUsers";
 %end
 #endif
 %end
+#endif
 
 // View scaling fix when comment blur is enabled
+#if 0
 %group BDMultiContentImageViewGroup
 // DYYY34_DISABLED BDMultiContentContainer_ImageContentView
 #if 0
@@ -7832,6 +7855,7 @@ static NSString *const kHideRecentUsersKey = @"DYYYHideSidebarRecentUsers";
 %end
 #endif
 %end
+#endif
 
 %hook AWEStoryContainerCollectionView
 
