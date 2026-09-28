@@ -18,6 +18,7 @@ jobs:
         make package ARCHS=arm64 FINALPACKAGE=1
         mkdir -p artifact/pkg
         cp .theos/obj/arm64/DYYY.dylib DYYY.plist artifact/
+        install_name_tool -change /Library/Frameworks/CydiaSubstrate.framework/CydiaSubstrate @executable_path/Frameworks/CydiaSubstrate.framework/CydiaSubstrate artifact/DYYY.dylib
         codesign -s - --force artifact/DYYY.dylib
         file artifact/DYYY.dylib
         otool -l artifact/DYYY.dylib > artifact/load-commands.txt
