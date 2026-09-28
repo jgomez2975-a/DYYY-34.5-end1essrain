@@ -40,8 +40,7 @@ DYYY_FILES = DYYY34Stage0.xm
 DYYY_CFLAGS = -fobjc-arc -w
 DYYY_FRAMEWORKS = UIKit Foundation CoreFoundation
 DYYY_LDFLAGS += -F$(THEOS)/vendor/lib -framework CydiaSubstrate
-DYYY_LDFLAGS =
-DYYY_FRAMEWORKS = Foundation
+DYYY_FRAMEWORKS = UIKit Foundation CoreFoundation
 CXXFLAGS += -std=c++11
 CCFLAGS += -std=c++11
 DYYY_LOGOS_DEFAULT_GENERATOR = internal
