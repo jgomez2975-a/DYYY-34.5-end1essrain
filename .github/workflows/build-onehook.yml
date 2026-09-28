@@ -1,0 +1,31 @@
+name: Build one-hook 34.5 probe
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Theos
+        run: |
+          git clone --depth 1 https://github.com/theos/theos.git "$HOME/theos"
+          git -C "$HOME/theos" submodule update --init --recursive
+          git clone --depth 1 https://github.com/theos/sdks.git "$RUNNER_TEMP/sdks"
+          rm -rf "$HOME/theos/sdks"; mv "$RUNNER_TEMP/sdks" "$HOME/theos/sdks"
+          echo "THEOS=$HOME/theos" >> "$GITHUB_ENV"
+          echo "$HOME/theos/bin" >> "$GITHUB_PATH"
+      - name: Build
+        run: |
+          make -f Makefile.onehook clean || true
+          make -f Makefile.onehook build ARCHS=arm64 FINALPACKAGE=1
+          mkdir -p artifact/pkg
+          cp build-onehook/DYYY34OneHook.dylib build-onehook/DYYY34OneHook.plist artifact/
+          codesign -s - --force artifact/DYYY34OneHook.dylib
+          file artifact/DYYY34OneHook.dylib
+          otool -l artifact/DYYY34OneHook.dylib > artifact/load-commands.txt
+          cp artifact/DYYY34OneHook.dylib artifact/DYYY34OneHook.plist artifact/pkg/
+          ditto -c -k --sequesterRsrc artifact/pkg artifact/DYYY34OneHook.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: DYYY34-onehook-arm64
+          path: artifact/*

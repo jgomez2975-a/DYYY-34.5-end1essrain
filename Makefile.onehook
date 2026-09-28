@@ -1,0 +1,19 @@
+# Minimal standard Logos probe for Douyin 34.5.0
+TARGET = iphone:clang:latest:14.0
+ARCHS = arm64
+DEBUG = 0
+FINALPACKAGE = 1
+include $(THEOS)/makefiles/common.mk
+TWEAK_NAME = DYYY34OneHook
+DYYY34OneHook_FILES = DYYY34OneHook.xm
+DYYY34OneHook_CFLAGS = -fobjc-arc -O0
+DYYY34OneHook_FRAMEWORKS = UIKit Foundation
+DYYY34OneHook_LOGOS_DEFAULT_GENERATOR = internal
+export THEOS_STRICT_LOGOS=0
+export ERROR_ON_WARNINGS=0
+include $(THEOS_MAKE_PATH)/tweak.mk
+.PHONY: build
+build: all
+	@mkdir -p build-onehook
+	@cp .theos/obj/arm64/DYYY34OneHook.dylib build-onehook/DYYY34OneHook.dylib
+	@cp DYYY34OneHook.plist build-onehook/DYYY34OneHook.plist
