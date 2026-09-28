@@ -8005,3 +8005,6 @@ static void findTargetViewInView(UIView *view) {
 }
 
 #endif
+
+%ctor {
+}
