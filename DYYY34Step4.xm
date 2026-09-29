@@ -18,7 +18,11 @@
 @interface AWELeftSideBarWeatherLabel : UILabel
 @end
 %hook AWELeftSideBarWeatherLabel
-- (id)initWithFrame:(CGRect)frame { id r=%orig(frame); self.hidden=YES; return r; }
+- (id)initWithFrame:(CGRect)frame {
+    id r = %orig(frame);
+    self.hidden = YES;
+    return r;
+}
 %end
 
 @interface AWELeftSideBarWeatherView : UIView
