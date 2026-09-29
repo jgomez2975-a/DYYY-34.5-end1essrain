@@ -1,0 +1,19 @@
+# DYYY 34.5 step 1: public UIKit hook only
+TARGET = iphone:clang:latest:14.0
+ARCHS = arm64
+DEBUG = 0
+FINALPACKAGE = 1
+include $(THEOS)/makefiles/common.mk
+TWEAK_NAME = DYYY34Step3
+DYYY34Step3_FILES = DYYY34Step3.xm
+DYYY34Step3_CFLAGS = -fobjc-arc -O0
+DYYY34Step3_FRAMEWORKS = UIKit Foundation
+DYYY34Step3_LOGOS_DEFAULT_GENERATOR = internal
+export THEOS_STRICT_LOGOS=0
+export ERROR_ON_WARNINGS=0
+include $(THEOS_MAKE_PATH)/tweak.mk
+.PHONY: build
+build: all
+	@mkdir -p build-step3
+	@cp .theos/obj/arm64/DYYY34Step3.dylib build-step3/DYYY34Step3.dylib
+	@cp DYYY34Step3.plist build-step3/DYYY34Step3.plist
