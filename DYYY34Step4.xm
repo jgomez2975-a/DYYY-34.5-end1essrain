@@ -28,7 +28,10 @@
 @interface AWELeftSideBarWeatherView : UIView
 @end
 %hook AWELeftSideBarWeatherView
-- (void)layoutSubviews { %orig; self.hidden=YES; }
+- (void)layoutSubviews {
+    %orig;
+    self.hidden = YES;
+}
 %end
 
 @interface AWELeftSideBarTopIconHorizontalView : UIView
