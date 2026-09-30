@@ -1,0 +1,28 @@
+name: Build DYYY34 step1
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          git clone --depth 1 https://github.com/theos/theos.git "$HOME/theos"
+          git -C "$HOME/theos" submodule update --init --recursive
+          git clone --depth 1 https://github.com/theos/sdks.git "$RUNNER_TEMP/sdks"
+          rm -rf "$HOME/theos/sdks"; mv "$RUNNER_TEMP/sdks" "$HOME/theos/sdks"
+          echo "THEOS=$HOME/theos" >> "$GITHUB_ENV"
+          echo "$HOME/theos/bin" >> "$GITHUB_PATH"
+          brew install ldid
+      - run: |
+          make -f Makefile.step7 clean || true
+          make -f Makefile.step7 build ARCHS=arm64 FINALPACKAGE=1
+          mkdir -p artifact
+          cp build-step7/DYYY34Step7.dylib build-step7/DYYY34Step7.plist artifact/
+          codesign -s - --force artifact/DYYY34Step7.dylib
+          file artifact/DYYY34Step7.dylib
+          ditto -c -k --sequesterRsrc artifact artifact/DYYY34Step7.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: DYYY34-step7-arm64
+          path: artifact/*
